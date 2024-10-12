@@ -4,6 +4,7 @@
   margin: 0;
   color: white;
   font-family: "Noto Sans JP", sans-serif;
+  overflow-x: hidden;
 }
 
 nav {
@@ -30,11 +31,11 @@ option {
   background-color: #0f1849;
 }
 
-input{
+input {
   background-color: #0e122a;
   color: white;
   border-radius: 5px;
-  border:  none;
+  border: none;
   padding: 5px 10px;
 }
 
@@ -74,15 +75,11 @@ input{
   font-weight: 600;
 }
 
-#course-section button {
-  margin-left: 20px;
-}
-
 #explore-btn {
   margin: 40px 0;
 }
 
-#options-row{
+#options-row {
   width: 100%;
   display: flex;
   justify-content: space-around;
@@ -90,9 +87,17 @@ input{
   padding: 40px 40px 60px;
 }
 
-#search-input{
+#options-row button {
+  margin-left: 20px;
+}
+
+#search-input {
   width: 300px;
   margin-left: 20px;
+}
+
+#col_1{
+  margin-right: 40px;
 }
 
 .rounded {
@@ -107,4 +112,42 @@ input{
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 600px);
+  gap: 20px;
+  width: 100%;
+}
+
+.grid-item {
+  display: flex;
+  background-color: #0d1230;
+  border: 1px solid white;
+  border-radius: 10px;
+  height: 200px;
+  margin: 30px 60px;
+  padding: 30px;
+  text-align: start;
+}
+
+.grid-item button{
+  width: 100%;
+}
+
+.img-container {
+  background-color: white;
+  height: 150px;
+  width: 100%;
+  margin-bottom: 20px;
+  margin-right: 40px;
 }

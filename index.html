@@ -1,48 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <title>Document</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="app">
-        <nav>
-            <h4 id="title">EduExplorer</h4>
-            <button id="checkbox-btn" class="rounded">Checkout</button>
-        </nav>
-        <div id="main-container">
-            <div id="welcome-section">
-                <h1 id="welcome-headline">EduExplorer</h1>
-                <p> "your one-stop hub for discovering and booking after-school classes and activities that inspire<br/>growth, learning, and fun!"</p>
-                <button id="explore-btn" class="rounded">Explore</button>
-            </div>
-            <div id="course-section">
-                <h3 id="course-headline">Our Course & Activities</h3>
-                <div id="options-row">
-                    <div class="flex-row">
-                        <p>Filter by</p>
-                        <select class="squared">
-                            <option value="Subject">Subject</option>
-                            <option value="Location">Location</option>
-                            <option value="Location">Price</option>
-                        </select>
-                    </div>
-                    <div class="flex-row">
-                        <p>Sort by</p>
-                        <button class="squared">Ascending</button>
-                        <button class="squared">Descending</button>
-                    </div>
-                    <div class="flex-row">
-                        <p>Search</p>
-                        <input id="search-input" type="text" placeholder="Search">
-                    </div>
-                </div>
-            </div>
+      <nav>
+        <h4 id="title">EduExplorer</h4>
+        <button id="checkbox-btn" class="rounded">Checkout</button>
+      </nav>
+      <div id="main-container">
+        <div id="welcome-section">
+          <h1 id="welcome-headline">EduExplorer</h1>
+          <p>
+            "your one-stop hub for discovering and booking after-school classes
+            and activities that inspire<br />growth, learning, and fun!"
+          </p>
+          <button id="explore-btn" class="rounded">Explore</button>
         </div>
+        <div id="course-section">
+          <h3 id="course-headline">Our Course & Activities</h3>
+          <div id="options-row">
+            <div class="flex-row">
+              <p>Filter by</p>
+              <select class="squared">
+                <option value="Subject">Subject</option>
+                <option value="Location">Location</option>
+                <option value="Price">Price</option>
+                <option value="Space">Space</option>
+              </select>
+            </div>
+            <div class="flex-row">
+              <p>Sort by</p>
+              <button class="squared">Ascending</button>
+              <button class="squared">Descending</button>
+            </div>
+            <div class="flex-row">
+              <p>Search</p>
+              <input id="search-input" type="text" placeholder="Search" />
+            </div>
+          </div>
+          <div class="grid">
+            <div class="grid-item">
+              <div id="col_1">
+                <div class="img-container"></div>
+                <div><button class="squared">Add To Cart</button></div>
+              </div>
+              <div>
+                <p>Subject:</p>
+                <p>Location:</p>
+                <p>Price:</p>
+                <p>Spaces:</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
