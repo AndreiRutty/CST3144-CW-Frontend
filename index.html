@@ -11,17 +11,17 @@
     <div id="app">
       <nav>
         <h4 id="title">EduExplorer</h4>
-        <button id="checkbox-btn" class="rounded">Checkout</button>
-        <button id="back-btn" class="rounded">Back</button>
+        <button id="checkbox-btn" class="rounded" v-on:click="toggleCheckOut" v-if="!displayCheckOut">Checkout</button>
+        <button id="back-btn" class="rounded" v-on:click="toggleCheckOut" v-if="displayCheckOut">Back</button>
       </nav>
-      <div id="main-container">
+      <div id="main-container" v-if="!displayCheckOut">
         <div id="welcome-section">
           <h1 id="welcome-headline">EduExplorer</h1>
           <p>
             "your one-stop hub for discovering and booking after-school classes
             and activities that inspire<br />growth, learning, and fun!"
           </p>
-          <button id="explore-btn" class="rounded">Explore</button>
+          <button id="explore-btn" class="rounded" v-on:click="scrollToCourse">Explore</button>
         </div>
         <div id="course-section">
           <h3 id="course-headline">Our Course & Activities</h3>
@@ -49,7 +49,7 @@
             <div class="grid-item">
               <div id="col_1">
                 <div class="img-container"></div>
-                <div><button class="squared">Add To Cart</button></div>
+                <div><button id="add-btn" class="squared">Add To Cart</button></div>
               </div>
               <div>
                 <p>Subject:</p>
@@ -61,7 +61,7 @@
           </div>
         </div>
       </div>
-      <div id="checkout-container">
+      <div id="checkout-container" v-show="displayCheckOut">
         <h1>Checkout</h1>
         <div>
           <input type="text" placeholder="Name">
@@ -72,7 +72,7 @@
           <div class="grid-item">
             <div id="col_1">
               <div class="img-container"></div>
-              <div><button class="squared">Add To Cart</button></div>
+              <div><button id="remove-btn" class="squared">Remove</button></div>
             </div>
             <div>
               <p>Subject:</p>

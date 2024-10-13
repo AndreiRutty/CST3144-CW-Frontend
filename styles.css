@@ -18,6 +18,7 @@ button {
   background: linear-gradient(45deg, #47d3ff, #4d72fe);
   border: 0;
   padding: 5px 30px;
+  cursor: pointer;
 }
 
 select {
@@ -48,12 +49,9 @@ input {
   font-size: 20px;
 }
 
-#back-btn{
-  display: none;
-}
 
 #checkout-container{
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
