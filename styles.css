@@ -48,6 +48,32 @@ input {
   font-size: 20px;
 }
 
+#back-btn{
+  display: none;
+}
+
+#checkout-container{
+  display: none;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 91vh;
+}
+
+#checkout-container h1{
+  margin: 50px;
+  margin-bottom: 100px;;
+}
+
+#checkout-container input{
+  margin: 20px 50px;
+  width: 400px;
+}
+
+#checkout-container h3{
+  margin: 40px;
+}
+
 #welcome-section {
   padding: 100px 0 150px;
   display: flex;
