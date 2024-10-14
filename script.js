@@ -97,10 +97,14 @@ let app = new Vue({
       if (!this.findItemInCart(item.id) && item.spaces > 0) {
         this.cart.push(item);
         item.spaces--;
-        alert(`${item.subject} course added to cart`)
+        alert(`${item.subject} course added to cart`);
       } else {
-        alert('You already have added this course to your cart')
+        alert("You already have added this course to your cart");
       }
+    },
+    removeItem(item) {
+      this.cart = this.cart.filter((cartItem) => cartItem.id != item.id);
+      item.spaces++;
     },
   },
   computed: {},

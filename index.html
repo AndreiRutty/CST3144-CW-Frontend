@@ -98,7 +98,7 @@
           <div class="grid-item" v-for="item in cart" :key="item.id">
             <div id="col_1">
               <div class="img-container"></div>
-              <div><button id="remove-btn" class="squared">Remove</button></div>
+              <div><button id="remove-btn" class="squared" v-on:click="removeItem(item)">Remove</button></div>
             </div>
             <div>
               <p>Subject: {{item.subject}}</p>
