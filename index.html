@@ -11,8 +11,22 @@
     <div id="app">
       <nav>
         <h4 id="title">EduExplorer</h4>
-        <button id="checkbox-btn" class="rounded" v-on:click="toggleCheckOut" v-if="!displayCheckOut">Checkout</button>
-        <button id="back-btn" class="rounded" v-on:click="toggleCheckOut" v-if="displayCheckOut">Back</button>
+        <button
+          id="checkbox-btn"
+          class="rounded"
+          v-on:click="toggleCheckOut"
+          v-if="!displayCheckOut"
+        >
+          Checkout
+        </button>
+        <button
+          id="back-btn"
+          class="rounded"
+          v-on:click="toggleCheckOut"
+          v-if="displayCheckOut"
+        >
+          Back
+        </button>
       </nav>
       <div id="main-container" v-if="!displayCheckOut">
         <div id="welcome-section">
@@ -21,7 +35,9 @@
             "your one-stop hub for discovering and booking after-school classes
             and activities that inspire<br />growth, learning, and fun!"
           </p>
-          <button id="explore-btn" class="rounded" v-on:click="scrollToCourse">Explore</button>
+          <button id="explore-btn" class="rounded" v-on:click="scrollToCourse">
+            Explore
+          </button>
         </div>
         <div id="course-section">
           <h3 id="course-headline">Our Course & Activities</h3>
@@ -46,16 +62,24 @@
             </div>
           </div>
           <div class="grid">
-            <div class="grid-item">
+            <div class="grid-item" v-for="course in courses" :key="course.id">
               <div id="col_1">
                 <div class="img-container"></div>
-                <div><button id="add-btn" class="squared">Add To Cart</button></div>
+                <div>
+                  <button
+                    id="add-btn"
+                    class="squared"
+                    v-on:click="addToCart(course)"
+                  >
+                    Add To Cart
+                  </button>
+                </div>
               </div>
               <div>
-                <p>Subject:</p>
-                <p>Location:</p>
-                <p>Price:</p>
-                <p>Spaces:</p>
+                <p>Subject: {{course.subject}}</p>
+                <p>Location: {{course.location}}</p>
+                <p>Price: £{{course.price}}</p>
+                <p>Spaces: {{course.spaces}}</p>
               </div>
             </div>
           </div>
@@ -64,21 +88,22 @@
       <div id="checkout-container" v-show="displayCheckOut">
         <h1>Checkout</h1>
         <div>
-          <input type="text" placeholder="Name">
-          <input type="number" placeholder="Phone Number">
+          <input type="text" placeholder="Name" />
+          <input type="number" placeholder="Phone Number" />
         </div>
+        <div><button id="buy-btn" class="squared">Buy</button></div>
         <h3>Items</h3>
-        <div class="grid">
-          <div class="grid-item">
+        <p v-if="cart.length == 0">No Items Bought</p>
+        <div v-else class="grid">
+          <div class="grid-item" v-for="item in cart" :key="item.id">
             <div id="col_1">
               <div class="img-container"></div>
               <div><button id="remove-btn" class="squared">Remove</button></div>
             </div>
             <div>
-              <p>Subject:</p>
-              <p>Location:</p>
-              <p>Price:</p>
-              <p>Spaces:</p>
+              <p>Subject: {{item.subject}}</p>
+              <p>Location: {{item.location}}</p>
+              <p>Price: £{{item.price}}</p>
             </div>
           </div>
         </div>
