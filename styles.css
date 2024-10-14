@@ -42,6 +42,7 @@ input {
 
 #app {
   background: linear-gradient(180deg, #0f1849, #050819);
+  height: 100vh;
 }
 
 #title {
@@ -55,7 +56,6 @@ input {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: 91vh;
 }
 
 #checkout-container h1{
@@ -148,7 +148,7 @@ input {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 600px);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   width: 100%;
 }
@@ -159,8 +159,8 @@ input {
   border: 1px solid white;
   border-radius: 10px;
   height: 200px;
-  margin: 30px 60px;
-  padding: 30px;
+  margin: 30px;
+  padding: 20px;
   text-align: start;
 }
 
