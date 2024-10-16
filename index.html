@@ -17,7 +17,7 @@
           v-on:click="toggleCheckOut"
           v-if="!displayCheckOut"
         >
-          Checkout
+          {{cartItemCount}} Checkout
         </button>
         <button
           id="back-btn"
@@ -58,11 +58,20 @@
             </div>
             <div class="flex-row">
               <p>Search</p>
-              <input id="search-input" type="text" placeholder="Search" />
+              <input
+                id="search-input"
+                type="text"
+                placeholder="Search"
+                v-model="search"
+              />
             </div>
           </div>
           <div class="grid">
-            <div class="grid-item" v-for="course in courses" :key="course.id">
+            <div
+              class="grid-item"
+              v-for="course in filteredCourses"
+              :key="course.id"
+            >
               <div id="col_1">
                 <div class="img-container"></div>
                 <div>
@@ -98,7 +107,15 @@
           <div class="grid-item" v-for="item in cart" :key="item.id">
             <div id="col_1">
               <div class="img-container"></div>
-              <div><button id="remove-btn" class="squared" v-on:click="removeItem(item)">Remove</button></div>
+              <div>
+                <button
+                  id="remove-btn"
+                  class="squared"
+                  v-on:click="removeItem(item)"
+                >
+                  Remove
+                </button>
+              </div>
             </div>
             <div>
               <p>Subject: {{item.subject}}</p>

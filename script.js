@@ -75,6 +75,7 @@ let app = new Vue({
       },
     ],
     cart: [],
+    search: "",
   },
   methods: {
     toggleCheckOut() {
@@ -107,5 +108,17 @@ let app = new Vue({
       item.spaces++;
     },
   },
-  computed: {},
+  computed: {
+    cartItemCount() {
+      return this.cart.length || "";
+    },
+
+    filteredCourses() {
+      return this.courses.filter(
+        (course) =>
+          course.subject.toLowerCase().includes(this.search.toLowerCase()) ||
+          course.location.toLowerCase().includes(this.search.toLowerCase())
+      );
+    },
+  },
 });
