@@ -103,6 +103,7 @@
         <div><button id="buy-btn" class="squared">Buy</button></div>
         <h3>Items</h3>
         <p v-if="cart.length == 0">No Items Bought</p>
+        <div class="extend" v-if="cart.length == 0"></div>
         <div v-else class="grid">
           <div class="grid-item" v-for="item in cart" :key="item.id">
             <div id="col_1">

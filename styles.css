@@ -2,16 +2,24 @@
 
 * {
   margin: 0;
+  padding: 0;
   color: white;
   font-family: "Noto Sans JP", sans-serif;
-  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to bottom, #0f1849, #050819);
 }
 
 nav {
+  background-color: #0f1849;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 30px 40px;
+  position: fixed;
+  width: 100%;
 }
 
 button {
@@ -46,35 +54,29 @@ input {
   padding: 5px 10px;
 }
 
-#app {
-  background: linear-gradient(180deg, #0f1849, #050819);
-  height: 100vh;
-}
-
 #title {
   font-weight: normal;
   font-size: 20px;
 }
 
-
-#checkout-container{
+#checkout-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
 }
 
-#checkout-container h1{
+#checkout-container h1 {
   margin: 50px;
-  margin-bottom: 100px;;
+  margin-bottom: 100px;
 }
 
-#checkout-container input{
+#checkout-container input {
   margin: 20px 50px;
   width: 400px;
 }
 
-#checkout-container h3{
+#checkout-container h3 {
   margin: 40px;
 }
 
@@ -126,12 +128,12 @@ input {
   margin-left: 20px;
 }
 
-#col_1{
+#col_1 {
   margin-right: 40px;
 }
 
-#buy-btn{
-  width:100px;
+#buy-btn {
+  width: 100px;
   margin: 30px 0;
 }
 
@@ -173,9 +175,10 @@ input {
   margin: 30px;
   padding: 20px;
   text-align: start;
+  height: 250px;
 }
 
-.grid-item button{
+.grid-item button {
   width: 100%;
 }
 
@@ -185,4 +188,8 @@ input {
   width: 100%;
   margin-bottom: 20px;
   margin-right: 40px;
+}
+
+.extend{
+  height: 40vh;
 }
