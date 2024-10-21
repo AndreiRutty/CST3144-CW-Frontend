@@ -44,17 +44,25 @@
           <div id="options-row">
             <div class="flex-row">
               <p>Filter by</p>
-              <select class="squared">
-                <option value="Subject">Subject</option>
-                <option value="Location">Location</option>
-                <option value="Price">Price</option>
-                <option value="Space">Space</option>
+              <select
+                class="squared"
+                v-model="searchFilter"
+                v-on:change=" sortCourses"
+              >
+                <option value="subject">Subject</option>
+                <option value="location">Location</option>
+                <option value="price">Price</option>
+                <option value="spaces">Space</option>
               </select>
             </div>
             <div class="flex-row">
               <p>Sort by</p>
-              <button class="squared">Ascending</button>
-              <button class="squared">Descending</button>
+              <button class="squared" v-on:click="toggleSortOrder(true)">
+                Ascending
+              </button>
+              <button class="squared" v-on:click="toggleSortOrder(false)">
+                Descending
+              </button>
             </div>
             <div class="flex-row">
               <p>Search</p>

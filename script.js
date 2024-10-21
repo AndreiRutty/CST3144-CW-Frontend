@@ -2,6 +2,8 @@ let app = new Vue({
   el: "#app",
   data: {
     displayCheckOut: false,
+    searchFilter: "Subject",
+    isAscending: true,
     courses: [
       {
         id: 1,
@@ -64,14 +66,14 @@ let app = new Vue({
         subject: "Computer Science",
         location: "Lab 1",
         price: 140,
-        spaces: 5,
+        spaces: 3,
       },
       {
         id: 10,
         subject: "Biology",
         location: "Room 8",
         price: 115,
-        spaces: 5,
+        spaces: 2,
       },
     ],
     cart: [],
@@ -106,6 +108,18 @@ let app = new Vue({
     removeItem(item) {
       this.cart = this.cart.filter((cartItem) => cartItem.id != item.id);
       item.spaces++;
+    },
+    sortCourses() {
+      return this.courses.sort((a, b) => {
+        if (this.searchFilter == "price" || this.searchFilter == "spaces") {
+          return a[this.searchFilter] - b[this.searchFilter];
+        } else {
+          return a[this.searchFilter].localeCompare(b[this.searchFilter]);
+        }
+      });
+    },
+    toggleSortOrder(value) {
+      this.isAscending = value;
     },
   },
   computed: {
