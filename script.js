@@ -3,7 +3,6 @@ let app = new Vue({
   data: {
     displayCheckOut: false,
     searchFilter: "Subject",
-    isAscending: true,
     courses: [
       {
         id: 1,
@@ -110,7 +109,7 @@ let app = new Vue({
       item.spaces++;
     },
     sortCourses() {
-      return this.courses.sort((a, b) => {
+      this.courses.sort((a, b) => {
         if (this.searchFilter == "price" || this.searchFilter == "spaces") {
           return a[this.searchFilter] - b[this.searchFilter];
         } else {
@@ -118,8 +117,14 @@ let app = new Vue({
         }
       });
     },
-    toggleSortOrder(value) {
-      this.isAscending = value;
+    sortDescending() {
+      this.courses.sort((a, b) => {
+        if (this.searchFilter == "price" || this.searchFilter == "spaces") {
+          return b[this.searchFilter] - a[this.searchFilter];
+        } else {
+          return b[this.searchFilter].localeCompare(a[this.searchFilter]);
+        }
+      });
     },
   },
   computed: {
