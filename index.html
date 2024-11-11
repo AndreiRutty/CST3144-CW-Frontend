@@ -105,13 +105,13 @@
       <div id="checkout-container" v-show="displayCheckOut">
         <h1>Checkout</h1>
         <div>
-          <input type="text" placeholder="Name" />
-          <input type="number" placeholder="Phone Number" />
+          <input id="name-input" type="text" placeholder="Name" />
+          <input id="phone-number-input" type="number" placeholder="Phone Number" />
         </div>
-        <div><button id="buy-btn" class="squared">Buy</button></div>
+        <div><button id="buy-btn" class="squared" v-on:click="placeOrder">Buy</button></div>
         <h3>Items</h3>
-        <p v-if="cart.length == 0">No Items Bought</p>
-        <div class="extend" v-if="cart.length == 0"></div>
+        <p v-if="cartItemCount == 0">No Items Bought</p>
+        <div class="extend" v-if="cartItemCount == 0"></div>
         <div v-else class="grid">
           <div class="grid-item" v-for="item in cart" :key="item.id">
             <div id="col_1">
