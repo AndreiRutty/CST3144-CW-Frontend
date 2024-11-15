@@ -87,6 +87,7 @@
                     id="add-btn"
                     class="squared"
                     v-on:click="addToCart(course)"
+                    v-bind:disabled="course.spaces <= 0"
                   >
                     Add To Cart
                   </button>
