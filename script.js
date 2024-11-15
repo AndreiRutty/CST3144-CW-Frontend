@@ -41,14 +41,26 @@ let app = new Vue({
     },
 
     addToCart(item) {
-      if (item.spaces > 0 && !this.findItemInCart(item._id)) {
-        this.cart.push(item);
+      // Define the number of seat property is not already
+      if (item.numberOfSeat == undefined) {
+        item.numberOfSeat = 0;
+      }
+
+      if (item.spaces > 0) {
+        if (this.findItemInCart(item._id)) {
+          item.numberOfSeat += 1;
+        } else {
+          item.numberOfSeat = 1;
+          this.cart.push(item);
+        }
         alert(`${item.subject} course added to cart`);
-      } else {
-        alert("You already have added this course to your cart");
       }
     },
     removeItem(item) {
+      // Reinitialize number of seat
+      item.numberOfSeat = 0;
+
+      // Removing course from cart
       this.cart = this.cart.filter((cartItem) => cartItem._id != item._id);
     },
     sortCourses() {
@@ -71,16 +83,22 @@ let app = new Vue({
     },
     placeOrder() {
       const lessonIDs = [];
+      const numberOfSeatsInfo = [];
 
       if (!this.cartItemCount) {
         alert("No Items Bought");
       } else {
-        this.coursesBought.forEach((course) => {
+        this.cart.forEach((course) => {
           // Collecting the lessons Id for the order object
           lessonIDs.push(course._id);
 
+          numberOfSeatsInfo.push({
+            courseId: course._id,
+            numberOfSeat: course.numberOfSeat,
+          });
+
           // Updating the number of spaces for each courses bought
-          let updatedSpaceCount = course.spaces - 1;
+          let updatedSpaceCount = course.spaces - course.numberOfSeat;
           fetch(`http://localhost:3000/courses/${course._id}`, {
             method: "PUT",
             headers: {
@@ -98,8 +116,10 @@ let app = new Vue({
           name: this.name,
           phoneNumber: this.phoneNumber,
           lessonIDs: lessonIDs,
-          numberOfSpace: 1,
+          numberOfSpace: numberOfSeatsInfo,
         };
+
+        // console.log(order);
 
         // Adding new order to the database
         fetch("http://localhost:3000/order", {
@@ -121,9 +141,6 @@ let app = new Vue({
   computed: {
     cartItemCount() {
       return this.cart.length || "";
-    },
-    coursesBought() {
-      return this.cart || [];
     },
     filteredCourses() {
       return this.courses.filter(
