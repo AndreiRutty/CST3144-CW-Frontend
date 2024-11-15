@@ -71,7 +71,12 @@ input {
   margin-bottom: 100px;
 }
 
-#checkout-container input {
+#spaces-input {
+  width: 100px;
+  margin: 10px
+}
+
+.checkout-input {
   margin: 20px 50px;
   width: 400px;
 }
@@ -183,13 +188,13 @@ input {
 }
 
 .img-container {
-  background-color: white;
+  /* background-color: white; */
   height: 150px;
   width: 100%;
   margin-bottom: 20px;
   margin-right: 40px;
 }
 
-.extend{
+.extend {
   height: 40vh;
 }

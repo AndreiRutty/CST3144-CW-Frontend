@@ -81,7 +81,7 @@
               :key="course.id"
             >
               <div id="col_1">
-                <div class="img-container"></div>
+                <img class="img-container" v-bind:src="course.img" alt="icon" />
                 <div>
                   <button
                     id="add-btn"
@@ -105,17 +105,33 @@
       <div id="checkout-container" v-show="displayCheckOut">
         <h1>Checkout</h1>
         <div>
-          <input id="name-input" type="text" placeholder="Name" />
-          <input id="phone-number-input" type="number" placeholder="Phone Number" />
+          <input
+            class="checkout-input"
+            id="name-input"
+            type="text"
+            placeholder="Name"
+            v-model="name"
+          />
+          <input
+            class="checkout-input"
+            id="phone-number-input"
+            type="number"
+            placeholder="Phone Number"
+            v-model="phoneNumber"
+          />
         </div>
-        <div><button id="buy-btn" class="squared" v-on:click="placeOrder">Buy</button></div>
+        <div>
+          <button id="buy-btn" class="squared" v-on:click="placeOrder">
+            Buy
+          </button>
+        </div>
         <h3>Items</h3>
         <p v-if="cartItemCount == 0">No Items Bought</p>
         <div class="extend" v-if="cartItemCount == 0"></div>
         <div v-else class="grid">
-          <div class="grid-item" v-for="item in cart" :key="item.id">
+          <div class="grid-item" v-for="item in cart" v-bind:key="item.id">
             <div id="col_1">
-              <div class="img-container"></div>
+              <img class="img-container" v-bind:src="item.img" alt="icon" />
               <div>
                 <button
                   id="remove-btn"
@@ -130,6 +146,16 @@
               <p>Subject: {{item.subject}}</p>
               <p>Location: {{item.location}}</p>
               <p>Price: £{{item.price}}</p>
+              <div class="flex-row">
+                <p>Spaces:</p>
+                <input
+                  type="number"
+                  min="1"
+                  v-bind:max="item.spaces"
+                  id="spaces-input"
+                  v-model="spaces"
+                />
+              </div>
             </div>
           </div>
         </div>
