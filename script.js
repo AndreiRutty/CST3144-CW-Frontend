@@ -6,6 +6,8 @@ let app = new Vue({
     courses: [],
     cart: [],
     search: "",
+    name: "",
+    phoneNumber: "",
   },
   methods: {
     fetchCourses() {
@@ -35,21 +37,19 @@ let app = new Vue({
     },
 
     findItemInCart(id) {
-      return this.cart.find((item) => item.courseId == id);
+      return this.cart.find((item) => item._id == id);
     },
 
     addToCart(item) {
-      if (!this.findItemInCart(item.id) && item.spaces > 0) {
+      if (item.spaces > 0 && !this.findItemInCart(item._id)) {
         this.cart.push(item);
-        // item.spaces--;
         alert(`${item.subject} course added to cart`);
       } else {
         alert("You already have added this course to your cart");
       }
     },
     removeItem(item) {
-      this.cart = this.cart.filter((cartItem) => cartItem.id != item.id);
-      // item.spaces++;
+      this.cart = this.cart.filter((cartItem) => cartItem._id != item._id);
     },
     sortCourses() {
       this.courses.sort((a, b) => {
@@ -70,22 +70,38 @@ let app = new Vue({
       });
     },
     placeOrder() {
-      const name = document.getElementById("name-input");
-      const phoneNumber = document.getElementById("phone-number-input");
       const lessonIDs = [];
 
       if (!this.cartItemCount) {
         alert("No Items Bought");
       } else {
-        this.coursesBought.forEach((course) => lessonIDs.push(course.courseId));
+        this.coursesBought.forEach((course) => {
+          // Collecting the lessons Id for the order object
+          lessonIDs.push(course._id);
+
+          // Updating the number of spaces for each courses bought
+          let updatedSpaceCount = course.spaces - 1;
+          fetch(`http://localhost:3000/courses/${course._id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ spaces: updatedSpaceCount }),
+          })
+            .then((res) => res.json())
+            .catch((err) => console.log(err));
+
+          this.removeItem(course);
+        });
 
         const order = {
-          name: name.value,
-          phoneNumber: phoneNumber.value,
+          name: this.name,
+          phoneNumber: this.phoneNumber,
           lessonIDs: lessonIDs,
-          numberOfSpaces: 1,
+          numberOfSpace: 1,
         };
 
+        // Adding new order to the database
         fetch("http://localhost:3000/order", {
           method: "POST",
           headers: {
@@ -97,8 +113,8 @@ let app = new Vue({
           .catch((err) => console.log(err));
 
         // Clearing Input Field
-        name.value = "";
-        phoneNumber.value = "";
+        this.name = "";
+        this.phoneNumber = "";
       }
     },
   },

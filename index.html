@@ -78,7 +78,7 @@
             <div
               class="grid-item"
               v-for="course in filteredCourses"
-              :key="course.id"
+              :key="course._id"
             >
               <div id="col_1">
                 <img class="img-container" v-bind:src="course.img" alt="icon" />
@@ -129,7 +129,7 @@
         <p v-if="cartItemCount == 0">No Items Bought</p>
         <div class="extend" v-if="cartItemCount == 0"></div>
         <div v-else class="grid">
-          <div class="grid-item" v-for="item in cart" v-bind:key="item.id">
+          <div class="grid-item" v-for="item in cart" :key="item._id">
             <div id="col_1">
               <img class="img-container" v-bind:src="item.img" alt="icon" />
               <div>
@@ -146,16 +146,7 @@
               <p>Subject: {{item.subject}}</p>
               <p>Location: {{item.location}}</p>
               <p>Price: £{{item.price}}</p>
-              <div class="flex-row">
-                <p>Spaces:</p>
-                <input
-                  type="number"
-                  min="1"
-                  v-bind:max="item.spaces"
-                  id="spaces-input"
-                  v-model="spaces"
-                />
-              </div>
+              <p>Amount of Seat: 1</p>
             </div>
           </div>
         </div>
