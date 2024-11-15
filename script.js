@@ -54,6 +54,7 @@ let app = new Vue({
           this.cart.push(item);
         }
         alert(`${item.subject} course added to cart`);
+        item.spaces -= 1;
       }
     },
     removeItem(item) {
@@ -62,6 +63,8 @@ let app = new Vue({
 
       // Removing course from cart
       this.cart = this.cart.filter((cartItem) => cartItem._id != item._id);
+
+      item.spaces += 1;
     },
     sortCourses() {
       this.courses.sort((a, b) => {

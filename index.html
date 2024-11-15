@@ -16,6 +16,7 @@
           class="rounded"
           v-on:click="toggleCheckOut"
           v-if="!displayCheckOut"
+          v-bind:disabled="cartItemCount <= 0"
         >
           {{cartItemCount}} Checkout
         </button>
@@ -122,7 +123,7 @@
           />
         </div>
         <div>
-          <button id="buy-btn" class="squared" v-on:click="placeOrder">
+          <button id="buy-btn" class="squared" v-on:click="placeOrder" v-bind:disabled="cartItemCount <= 0">
             Buy
           </button>
         </div>
