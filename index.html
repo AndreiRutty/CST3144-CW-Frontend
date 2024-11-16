@@ -82,7 +82,11 @@
               :key="course._id"
             >
               <div id="col_1">
-                <img class="img-container" v-bind:src="course.img" alt="icon" />
+                <img
+                  class="img-container"
+                  v-bind:src="imgUrl(course.subject)"
+                  alt="icon"
+                />
                 <div>
                   <button
                     id="add-btn"
@@ -123,7 +127,12 @@
           />
         </div>
         <div>
-          <button id="buy-btn" class="squared" v-on:click="placeOrder" v-bind:disabled="name === '' || phoneNumber === ''">
+          <button
+            id="buy-btn"
+            class="squared"
+            v-on:click="placeOrder"
+            v-bind:disabled="name === '' || phoneNumber === ''"
+          >
             Buy
           </button>
         </div>
@@ -133,7 +142,11 @@
         <div v-else class="grid">
           <div class="grid-item" v-for="item in cart" :key="item._id">
             <div id="col_1">
-              <img class="img-container" v-bind:src="item.img" alt="icon" />
+              <img
+                class="img-container"
+                v-bind:src="imgUrl(item.subject)"
+                alt="icon"
+              />
               <div>
                 <button
                   id="remove-btn"

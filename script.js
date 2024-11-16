@@ -140,6 +140,9 @@ let app = new Vue({
         this.phoneNumber = "";
       }
     },
+    imgUrl(filename) {
+      return `http://localhost:3000/courses/images/${filename.toLowerCase()}.png`;
+    },
   },
   computed: {
     cartItemCount() {
