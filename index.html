@@ -18,7 +18,7 @@
           v-if="!displayCheckOut"
           v-bind:disabled="cartItemCount <= 0"
         >
-          {{cartItemCount}} Checkout
+          {{cartItemCount}} Shopping Cart
         </button>
         <button
           id="back-btn"
@@ -133,7 +133,7 @@
             v-on:click="placeOrder"
             v-bind:disabled="name === '' || phoneNumber === ''"
           >
-            Buy
+            <p>Checkout</p>
           </button>
         </div>
         <h3>Items</h3>
