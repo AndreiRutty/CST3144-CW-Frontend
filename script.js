@@ -8,10 +8,11 @@ let app = new Vue({
     search: "",
     name: "",
     phoneNumber: "",
+    url: "http://localhost:3000",
   },
   methods: {
     fetchCourses() {
-      fetch("http://localhost:3000/courses")
+      fetch(`${this.url}/courses`)
         .then((res) => {
           if (!res.ok) throw new Error("Couldn't retrieve the courses");
 
@@ -19,6 +20,12 @@ let app = new Vue({
         })
         .then((data) => {
           this.courses = data;
+          this.courses.forEach((course) => {
+            if (course.numberOfSeat == undefined) {
+              course.numberOfSeat = 0;
+            }
+            console.log(course.spaces);
+          });
         })
         .catch((err) => {
           console.log(`Error: ${err}`);
@@ -41,22 +48,30 @@ let app = new Vue({
     },
 
     addToCart(item) {
-      // Define the number of seat property is not already
-      if (item.numberOfSeat == undefined) {
-        item.numberOfSeat = 0;
-      }
+      // Checking the item is already in the shopping cart
+      const exisitngItem = this.findItemInCart(item._id);
 
-      if (item.spaces > 0) {
-        if (this.findItemInCart(item._id)) {
-          item.numberOfSeat += 1;
+      if (exisitngItem) {
+        // Checking if number of seat is less than item available space number
+        if (exisitngItem.numberOfSeat < item.spaces) {
+          exisitngItem.numberOfSeat += 1;
+          alert(`${item.subject} course added to cart`);
         } else {
+          alert("No more space is available");
+        }
+      } else {
+        if (item.spaces > 0) {
           item.numberOfSeat = 1;
           this.cart.push(item);
+          alert(`${item.subject} course added to cart`);
+        } else {
+          alert("No more space is available");
         }
-        alert(`${item.subject} course added to cart`);
-        item.spaces -= 1;
       }
+
+      item.spaces--;
     },
+
     removeItem(item) {
       // Reinitialize number of seat
       item.numberOfSeat = 0;
@@ -64,7 +79,7 @@ let app = new Vue({
       // Removing course from cart
       this.cart = this.cart.filter((cartItem) => cartItem._id != item._id);
 
-      item.spaces += 1;
+      item.spaces++;
     },
     sortCourses() {
       this.courses.sort((a, b) => {
@@ -101,8 +116,8 @@ let app = new Vue({
           });
 
           // Updating the number of spaces for each courses bought
-          let updatedSpaceCount = course.spaces - course.numberOfSeat;
-          fetch(`http://localhost:3000/courses/${course._id}`, {
+          let updatedSpaceCount = course.spaces + 1 - course.numberOfSeat;
+          fetch(`${this.url}/courses/${course._id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
@@ -111,8 +126,6 @@ let app = new Vue({
           })
             .then((res) => res.json())
             .catch((err) => console.log(err));
-
-          this.removeItem(course);
         });
 
         const order = {
@@ -122,26 +135,26 @@ let app = new Vue({
           numberOfSpace: numberOfSeatsInfo,
         };
 
-        // console.log(order);
-
         // Adding new order to the database
-        fetch("http://localhost:3000/order", {
+        fetch(`${this.url}/order`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(order),
         })
-          .then((res) => res.json())
+          .then((data) => console.log(data))
           .catch((err) => console.log(err));
 
         // Clearing Input Field
         this.name = "";
         this.phoneNumber = "";
+
+        alert("Order Placed\nThanks for Your Purchase");
       }
     },
     imgUrl(filename) {
-      return `http://localhost:3000/courses/images/${filename.toLowerCase()}.png`;
+      return `${this.url}/courses/images/${filename.toLowerCase()}.png`;
     },
   },
   computed: {
