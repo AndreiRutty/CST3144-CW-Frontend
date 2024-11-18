@@ -72,13 +72,14 @@
                 type="text"
                 placeholder="Search"
                 v-model="search"
+                v-on:input="searchCourses"
               />
             </div>
           </div>
           <div class="grid">
             <div
               class="grid-item"
-              v-for="course in filteredCourses"
+              v-for="course in courses"
               :key="course._id"
             >
               <div id="col_1">

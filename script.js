@@ -24,7 +24,6 @@ let app = new Vue({
             if (course.numberOfSeat == undefined) {
               course.numberOfSeat = 0;
             }
-            console.log(course.spaces);
           });
         })
         .catch((err) => {
@@ -115,17 +114,26 @@ let app = new Vue({
             numberOfSeat: course.numberOfSeat,
           });
 
-          // Updating the number of spaces for each courses bought
-          let updatedSpaceCount = course.spaces + 1 - course.numberOfSeat;
+          // // Updating the number of spaces for each courses bought
           fetch(`${this.url}/courses/${course._id}`, {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ spaces: updatedSpaceCount }),
+            body: JSON.stringify({
+              subject: course.subject,
+              location: course.location,
+              price: course.price,
+              spaces: course.spaces,
+              img: course.img,
+            }),
           })
             .then((res) => res.json())
             .catch((err) => console.log(err));
+
+          this.cart = this.cart.filter(
+            (cartItem) => cartItem._id != course._id
+          );
         });
 
         const order = {
@@ -156,17 +164,26 @@ let app = new Vue({
     imgUrl(filename) {
       return `${this.url}/courses/images/${filename.toLowerCase()}.png`;
     },
+    async searchCourses() {
+      try {
+        if (this.search != "") {
+          const res = await fetch(
+            `${this.url}/search?q=${encodeURIComponent(this.search)}`
+          );
+          const data = await res.json();
+
+          this.courses = data;
+        } else {
+          this.fetchCourses(); // Fetch all courses if search is empty
+        }
+      } catch (err) {
+        console.log(`Error ${err}`);
+      }
+    },
   },
   computed: {
     cartItemCount() {
       return this.cart.length || "";
-    },
-    filteredCourses() {
-      return this.courses.filter(
-        (course) =>
-          course.subject.toLowerCase().includes(this.search.toLowerCase()) ||
-          course.location.toLowerCase().includes(this.search.toLowerCase())
-      );
     },
   },
   mounted() {
