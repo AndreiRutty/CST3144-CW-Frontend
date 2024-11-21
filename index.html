@@ -175,9 +175,10 @@
           search: "",
           name: "",
           phoneNumber: "",
-          url: "http://localhost:3000",
+          url: "https://cst3144-cw-backend-andrei-rutty-m00941399.onrender.com",
         },
         methods: {
+          // Method to Fetch courses from database
           fetchCourses() {
             fetch(`${this.url}/courses`)
               .then((res) => {
@@ -187,6 +188,8 @@
               })
               .then((data) => {
                 this.courses = data;
+
+                // Adding a new attribute (number of seat) to each course object 
                 this.courses.forEach((course) => {
                   if (course.numberOfSeat == undefined) {
                     course.numberOfSeat = 0;
@@ -197,10 +200,13 @@
                 console.log(`Error: ${err}`);
               });
           },
+
+          // Method to toggle the checkout window
           toggleCheckOut() {
             this.displayCheckOut = !this.displayCheckOut;
           },
 
+          // Method to scroll to the course section
           scrollToCourse() {
             const courseSection = document.getElementById("course-section");
 
@@ -208,11 +214,14 @@
               courseSection.scrollIntoView({ behavior: "smooth" });
             }
           },
-
+          
+          // Method to find a particular course in the cart
           findItemInCart(id) {
             return this.cart.find((item) => item._id == id);
           },
+          
 
+          // Method to add a course to the cart
           addToCart(item) {
             // Checking the item is already in the shopping cart
             const exisitngItem = this.findItemInCart(item._id);
@@ -235,6 +244,7 @@
               }
             }
 
+            // Decrementing the number of spaces available for the course
             item.spaces--;
           },
 
@@ -289,7 +299,7 @@
                   numberOfSeat: course.numberOfSeat,
                 });
 
-                // // Updating the number of spaces for each courses bought
+                // Updating the number of spaces for each courses bought
                 fetch(`${this.url}/courses/${course._id}`, {
                   method: "PUT",
                   headers: {
