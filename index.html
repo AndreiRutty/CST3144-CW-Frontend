@@ -182,14 +182,17 @@
           fetchCourses() {
             fetch(`${this.url}/courses`)
               .then((res) => {
+                // Display error message if courses can't be retrieved
                 if (!res.ok) throw new Error("Couldn't retrieve the courses");
 
+                // Returning courses data in JSON format an convert it to Javascript object
                 return res.json();
               })
               .then((data) => {
+                // Assign the courses data to the courses array
                 this.courses = data;
 
-                // Adding a new attribute (number of seat) to each course object 
+                // Adding a new attribute (number of seat) to each course object if not already defined
                 this.courses.forEach((course) => {
                   if (course.numberOfSeat == undefined) {
                     course.numberOfSeat = 0;
@@ -197,11 +200,12 @@
                 });
               })
               .catch((err) => {
+                // Display error message if any error occured
                 console.log(`Error: ${err}`);
               });
           },
 
-          // Method to toggle the checkout window
+          // Method to toggle the checkout window display flag
           toggleCheckOut() {
             this.displayCheckOut = !this.displayCheckOut;
           },
@@ -214,12 +218,11 @@
               courseSection.scrollIntoView({ behavior: "smooth" });
             }
           },
-          
-          // Method to find a particular course in the cart
+
+          // Method to find a particular course in the cart array
           findItemInCart(id) {
             return this.cart.find((item) => item._id == id);
           },
-          
 
           // Method to add a course to the cart
           addToCart(item) {
@@ -229,15 +232,22 @@
             if (exisitngItem) {
               // Checking if number of seat is less than item available space number
               if (exisitngItem.numberOfSeat < item.spaces) {
+                // Incrementing number of spcae for that course
                 exisitngItem.numberOfSeat += 1;
+                // Display a feedback message
                 alert(`${item.subject} course added to cart`);
               } else {
+                // Display a feedback message if number of seat is full
                 alert("No more space is available");
               }
             } else {
+              // Checking if number of seat is less than item available space number
               if (item.spaces > 0) {
+                // Assigning number of seat to 1
                 item.numberOfSeat = 1;
+                // Add item to cart array
                 this.cart.push(item);
+                // Display feedback message
                 alert(`${item.subject} course added to cart`);
               } else {
                 alert("No more space is available");
@@ -248,6 +258,7 @@
             item.spaces--;
           },
 
+          // Method to remove a course from the cart array
           removeItem(item) {
             // Reinitialize number of seat
             item.numberOfSeat = 0;
@@ -257,20 +268,27 @@
               (cartItem) => cartItem._id != item._id
             );
 
+            // Incrementing number of spaces
             item.spaces++;
           },
+
+          // Method to sort the course in ascending order
           sortCourses() {
             this.courses.sort((a, b) => {
+              // Checking if the searchFilter is numerical or alpanumeric
               if (
                 this.searchFilter == "price" ||
                 this.searchFilter == "spaces"
               ) {
+                // Perform numerical sort for price and spaces
                 return a[this.searchFilter] - b[this.searchFilter];
               } else {
+                // Perform alphabetical sort for other fields (names, location)
                 return a[this.searchFilter].localeCompare(b[this.searchFilter]);
               }
             });
           },
+
           sortDescending() {
             this.courses.sort((a, b) => {
               if (
@@ -283,6 +301,7 @@
               }
             });
           },
+
           placeOrder() {
             const lessonIDs = [];
             const numberOfSeatsInfo = [];
@@ -346,12 +365,25 @@
               alert("Order Placed\nThanks for Your Purchase");
             }
           },
+
+          // Function that return the image Url for each course
           imgUrl(filename) {
             return `${this.url}/courses/images/${filename.toLowerCase()}.png`;
           },
+
+          // Method to search for a specific course
           async searchCourses() {
             try {
+              if (this.search.trim()) {
+                this.fetchCourses();
+              }
+
               if (this.search != "") {
+                // Checking if the search input value is a number
+
+                console.log(typeof this.search);
+
+                // Send the query as part of the URL
                 const res = await fetch(
                   `${this.url}/search?q=${encodeURIComponent(this.search)}`
                 );
