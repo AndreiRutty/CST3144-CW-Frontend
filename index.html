@@ -374,15 +374,13 @@
           // Method to search for a specific course
           async searchCourses() {
             try {
-              if (this.search.trim()) {
-                this.fetchCourses();
-              }
+              // Check if there is whitespace in search input value
+              // if (this.search.trim()) {
+              //   // Fetch all courses
+              //   this.fetchCourses();
+              // }
 
               if (this.search != "") {
-                // Checking if the search input value is a number
-
-                console.log(typeof this.search);
-
                 // Send the query as part of the URL
                 const res = await fetch(
                   `${this.url}/search?q=${encodeURIComponent(this.search)}`
