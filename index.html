@@ -98,7 +98,7 @@
               <div>
                 <p>Subject: {{course.subject}}</p>
                 <p>Location: {{course.location}}</p>
-                <p>Price: £{{course.price}}</p>
+                <p>Price: {{course.price}}</p>
                 <p>Spaces: {{course.spaces}}</p>
               </div>
             </div>
@@ -157,7 +157,7 @@
             <div>
               <p>Subject: {{item.subject}}</p>
               <p>Location: {{item.location}}</p>
-              <p>Price: £{{item.price}}</p>
+              <p>Price: {{item.price}}</p>
               <p>Amount of Seat: {{item.numberOfSeat}}</p>
             </div>
           </div>
@@ -374,11 +374,6 @@
           // Method to search for a specific course
           async searchCourses() {
             try {
-              // Check if there is whitespace in search input value
-              // if (this.search.trim()) {
-              //   // Fetch all courses
-              //   this.fetchCourses();
-              // }
 
               if (this.search != "") {
                 // Send the query as part of the URL
