@@ -76,7 +76,9 @@
               />
             </div>
           </div>
-          <div class="grid">
+          <div v-if="coursesCount == 0"><p>No Course Found</p></div>
+          <div class="extend" v-if="coursesCount == 0"></div>
+          <div v-else class="grid">
             <div class="grid-item" v-for="course in courses" :key="course._id">
               <div id="col_1">
                 <img
@@ -348,7 +350,7 @@
               };
 
               // Adding new order to the database
-              fetch(`${this.url}/order`, {
+              fetch(`${this.url}/orders`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -374,7 +376,6 @@
           // Method to search for a specific course
           async searchCourses() {
             try {
-
               if (this.search != "") {
                 // Send the query as part of the URL
                 const res = await fetch(
@@ -393,7 +394,10 @@
         },
         computed: {
           cartItemCount() {
-            return this.cart.length || "";
+            return this.cart.length || [];
+          },
+          coursesCount() {
+            return this.courses.length || [];
           },
         },
         mounted() {
