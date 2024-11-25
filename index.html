@@ -374,16 +374,13 @@
           },
 
           // Method to search for a specific course
-          async searchCourses() {
+          searchCourses() {
             try {
               if (this.search != "") {
-                // Send the query as part of the URL
-                const res = await fetch(
-                  `${this.url}/search?q=${encodeURIComponent(this.search)}`
-                );
-                const data = await res.json();
-
-                this.courses = data;
+                fetch(`${this.url}/search?q=${encodeURIComponent(this.search)}`)
+                  .then((res) => res.json())
+                  .then((data) => (this.courses = data))
+                  .catch((err) => console.log(err));
               } else {
                 this.fetchCourses(); // Fetch all courses if search is empty
               }
